@@ -1,0 +1,85 @@
+body {
+    font-family: "FelbridgePro-Light";
+    background-color: #efefef;
+}
+.header {
+    height: 350px;
+    background-color: #5e269e;
+}
+.nav {
+    background-color: #fff;
+    ul {
+        li {
+            a {
+                color: #000;
+            }
+        }
+    }
+    .brand-logo {
+        font-size: 4.1rem;
+    }
+}
+
+.btn, .btn-large, .btn-small {
+    color: #000;
+    background-color: #fff;
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #d4d4d4;
+}
+
+.dropdown-menu {
+    background: #fff;
+    border: 1px solid #5d279d;
+    display:none;
+    &:hover{
+        display:block;
+    }
+}
+
+
+footer {
+    height: 150px;
+    margin-top: 75px;
+    background-color: #5e269e;
+    padding:20px 0;
+    color: #fff;
+    height: 100%;
+    p {
+        text-align:center;
+    }
+    hr {
+        border:1px solid #6a2bb4;
+    }
+    .link-social {
+        display: block;
+        width: 15px;
+        height: 15px;
+        text-indent: -9999px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+        transition: all .3s ease;
+    }
+    .twitter {
+        background-image: url(http://www.iconsplace.com/download/orange-twitter-16.png);
+    }
+    .instagram {
+        background-image: url(http://www.iconsplace.com/download/orange-instagram-16.png);
+    }
+    .linkedin {
+        background-image: url(http://www.iconsplace.com/download/orange-linkedin-16.png);
+    }
+    .facebook {
+        background-image: url(http://www.iconsplace.com/download/orange-facebook-16.png);
+    }
+    .social-nav-list {
+        float: right;
+        margin-top: 2px;
+        .item {
+            float: left;
+            margin-right: 20px;
+        }
+    }
+}

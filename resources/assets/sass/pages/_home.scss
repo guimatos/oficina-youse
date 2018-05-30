@@ -1,0 +1,37 @@
+.title {
+    color: #fff;
+    text-align:center;
+    font-family: "FelbridgePro-Bold", sans-serif;
+    padding-top: 25px;
+    h2 {
+        margin-bottom:0;
+    }
+    p {
+        margin-top:0;
+        font-size: 1.64rem;
+        font-family: "FelbridgePro-Light", sans-serif;
+    }
+}
+
+.form-section {
+    background: #fff;
+    max-width: 960px;
+    margin: 0 auto;
+    margin-top: -80px;
+    padding: 15px 0;
+}
+
+.yellow-btn {
+    background: #ff9e1b;
+    border-color: #ff9e1b;
+    color: #fff;
+    font-size: 25px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 40px;
+    font-family: "FelbridgePro-Light";
+}
+
+.send {
+     text-align: center;
+}
