@@ -5,13 +5,16 @@
     h2 {
         text-align:center;
     }
+
     .panel {
-        background: #fff;
-        padding: 20px;
         position: absolute;
         top: 50%;
         left: 50%;
         width:50%;
         transform: translate(-50%,-50%);
+    }
+
+    .login-buttons {
+        padding: 20px 0;
     }
 }

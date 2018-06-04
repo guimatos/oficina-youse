@@ -9605,19 +9605,19 @@ footer .link-social {
 }
 
 footer .twitter {
-  background-image: url(http://www.iconsplace.com/download/orange-twitter-16.png);
+  background-image: url(/images/orange-twitter-16.png?3981018b8f3acb6705159659b428a33d);
 }
 
 footer .instagram {
-  background-image: url(http://www.iconsplace.com/download/orange-instagram-16.png);
+  background-image: url(/images/orange-instagram-16.png?3a6dd1b14e54be15005eaeec91485c4d);
 }
 
 footer .linkedin {
-  background-image: url(http://www.iconsplace.com/download/orange-linkedin-16.png);
+  background-image: url(/images/orange-linkedin-16.png?6ed0e9255052d82cc46e391d03c9aaea);
 }
 
 footer .facebook {
-  background-image: url(http://www.iconsplace.com/download/orange-facebook-16.png);
+  background-image: url(/images/orange-facebook-16.png?acf3b9e87fba1b4dd8c662ad5b57165b);
 }
 
 footer .social-nav-list {
@@ -9628,6 +9628,69 @@ footer .social-nav-list {
 footer .social-nav-list .item {
   float: left;
   margin-right: 20px;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.alert .close {
+  float: right;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-success .close {
+  color: #3c763d;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-info .close {
+  color: #31708f;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-warning .close {
+  color: #8a6d3b;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert-danger .close {
+  color: #a94442;
+}
+
+.panel {
+  background: #fff;
+  padding: 20px;
+}
+
+.pagination li.active {
+  background-color: #ffb81c;
 }
 
 /* Pages */
@@ -9683,13 +9746,19 @@ footer .social-nav-list .item {
 }
 
 .login .panel {
-  background: #fff;
-  padding: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
   width: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+.login .login-buttons {
+  padding: 20px 0;
+}
+
+.parts-invoice {
+  margin-top: 50px;
 }
 

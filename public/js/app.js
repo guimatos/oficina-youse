@@ -9919,11 +9919,11 @@ $(document).ready(function () {
             $("#office_document").unmask();
         } catch (e) {}
 
-        var tamanho = $("#office_document").val().length;
+        var size = $("#office_document").val().length;
 
-        if (tamanho < 11) {
+        if (size < 11) {
             $("#office_document").mask("999.999.999-99");
-        } else if (tamanho >= 11) {
+        } else if (size >= 11) {
             $("#office_document").mask("99.999.999/9999-99");
         }
 
@@ -9937,6 +9937,10 @@ $(document).ready(function () {
         var currentValue = $(this).val();
         $(this).val('');
         $(this).val(currentValue);
+    });
+
+    $('.close').on('click', function () {
+        $(this).parent().parent().remove();
     });
 });
 

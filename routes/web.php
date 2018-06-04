@@ -12,12 +12,15 @@
 */
 
 Route::get('/', 'PartsInvoicesController@index');
-Route::post('/', 'PartsInvoicesController@store');
+Route::post('/', 'PartsInvoicesController@store')->name('storeInvoice');;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('notas', 'PartsInvoicesController@list');
+    Route::get('notas', 'PartsInvoicesController@get');
     Route::get('notas/{id}', 'PartsInvoicesController@show');
     Route::post('notas/deletar/{id}', 'PartsInvoicesController@destroy');
+    
+    /* Search for notes */
+    Route::any ('/notas/pesquisar', 'PartsInvoicesController@search');
 });
 
 Auth::routes();

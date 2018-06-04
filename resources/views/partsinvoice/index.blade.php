@@ -12,7 +12,13 @@
 <section class="form-section">
    <div class="container">
       <div class="row">
-         <form class="col s12">
+        <div class="col s12">
+            @include('flashMessage')
+        </div>
+      </div>
+      <div class="row">
+         <form class="col s12" method="post" action="{{url('/')}}">
+            {{ csrf_field() }}
             <div class="row">
                <div class="input-field col xl6 s12">
                   <input name="sinister" id="sinister" type="tel" class="validate" required>
