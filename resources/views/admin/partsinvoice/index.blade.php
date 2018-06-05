@@ -7,11 +7,6 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                    @include('flashMessage')
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
                     <form action="/admin/notas/pesquisar" method="GET" role="search">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">textsms</i>
@@ -43,18 +38,18 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="row">                
+                    <div class="col s12">
+                        {{ $partsInvoices->links() }}
+                    </div>
+                </div>
+
+                @else
+                <div class="alert alert-warning alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                    <strong>{!! $message !!}</strong>
+                </div>
                 @endif
-            </div>
-            <div class="col s12">
-                <ul class="pagination">
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                    <li class="active"><a href="#!">1</a></li>
-                    <li class="waves-effect"><a href="#!">2</a></li>
-                    <li class="waves-effect"><a href="#!">3</a></li>
-                    <li class="waves-effect"><a href="#!">4</a></li>
-                    <li class="waves-effect"><a href="#!">5</a></li>
-                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                </ul>
             </div>
         </div>
     </div>

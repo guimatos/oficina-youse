@@ -12,15 +12,16 @@
 */
 
 Route::get('/', 'PartsInvoicesController@index');
-Route::post('/', 'PartsInvoicesController@store')->name('storeInvoice');;
+Route::post('/', 'PartsInvoicesController@store')->name('storeInvoice');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('notas', 'PartsInvoicesController@get');
-    Route::get('notas/{id}', 'PartsInvoicesController@show');
-    Route::post('notas/deletar/{id}', 'PartsInvoicesController@destroy');
-    
-    /* Search for notes */
-    Route::any ('/notas/pesquisar', 'PartsInvoicesController@search');
+    Route::group(['prefix' => 'notas'], function () {
+        /* Search for notes */
+        Route::get ('/pesquisar', 'PartsInvoicesController@search')->name('search');
+        Route::get('/', 'PartsInvoicesController@get');
+        Route::get('/{id}', 'PartsInvoicesController@show');
+        Route::post('/deletar/{id}', 'PartsInvoicesController@destroy');
+    });
 });
 
 Auth::routes();

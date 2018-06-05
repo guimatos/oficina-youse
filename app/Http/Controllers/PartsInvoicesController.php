@@ -26,23 +26,25 @@ class PartsInvoicesController extends Controller
         if (count ( $partsInvoices ) > 0){
             return view('admin.partsinvoice.index',['partsInvoices' => $partsInvoices]);
         } else {
-            return view ('admin.partsinvoice.index')->withMessage ('warning', 'Não há resultados a exibir.');
+            return view ('admin.partsinvoice.index')->with('warning', 'Não há resultados a exibir.');
         }
         
     }
     
     public function search (Request $request) {
-        dd("caiu");
-        dd($request->q);
+        $q = $request->q;
         if($q != ""){
-            $partsInvoices = PartsInvoice::where ( 'sinister', 'LIKE', '%' . $q . '%' )->orWhere ( 'vehicle_plate', 'LIKE', '%' . $q . '%' )->orWhere ('office_document', 'LIKE', '%' . $q . '%' )->paginate (10)->setPath ( '' );
+            $partsInvoices = PartsInvoice::where ( 'sinister', 'LIKE', '%' . $q . '%' )->orWhere ( 'vehicle_plate', 'LIKE', '%' . $q . '%' )->orWhere ('office_document', 'LIKE', '%' . $q . '%' )->paginate(10)->setPath ( '' );
             $pagination = $partsInvoices->appends ( array (
                         'q' => Input::get ( 'q' ) 
                 ));
-            if (count ( $partsInvoices ) > 0)
-                return view('admin.partsinvoice.index',['partsInvoices' => $partsInvoices]);
+            if (count($partsInvoices) > 0){
+                return view('admin.partsinvoice.index', ['partsInvoices' => $partsInvoices]);
+            } else {
+                return view('admin.partsinvoice.index', ['message' => 'Nenhum resultado encontrado com o termo <i>' . $q . '</i>. Por favor, tente novamente.']);
+            }   
         }
-        return view ('admin.partsinvoice.index')->withMessage ( 'No Details found. Try to search again !' );
+        return view ('admin.partsinvoice.index')->with('warning', 'No Details found. Try to search again !');
     }
 
     public function store(Request $request)
