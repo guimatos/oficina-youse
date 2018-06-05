@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="row">
-         <form class="col s12" method="post" action="{{url('/')}}">
+         <form class="col s12" method="post" action="{{url('/')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row">
                <div class="input-field col xl6 s12">

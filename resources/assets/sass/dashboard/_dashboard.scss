@@ -142,3 +142,33 @@ footer {
 .pagination li.active {
     background-color: #ffb81c;
 }
+
+.yellow-link {
+    color: #ffb81c;
+}
+
+hr {
+    border: 0.5px solid #e6e5e5;
+}
+
+.page-navigation {
+    padding-top: 20px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;    
+}
+
+.dropdown-menu {
+    border: unset;
+    background: #fff;
+    width: 100%;
+    position: absolute;
+    li {
+        width: 100%;
+    }
+}

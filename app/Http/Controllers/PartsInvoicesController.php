@@ -59,10 +59,19 @@ class PartsInvoicesController extends Controller
             $partsInvoice->bank       = $request->bank;
             $partsInvoice->agency       = $request->agency;
             $partsInvoice->account       = $request->account;
-    
-            // $partsInvoice->invoice_parts       = $request->price;
-            // $partsInvoice->invoice_services       = $request->price;
-            // $partsInvoice->discharge_term       = $request->price;
+
+            if(isset($request->invoice_parts)){
+                $filenameInvoiceParts = $request->file('invoice_parts')->store('invoice_parts');
+                $partsInvoice->invoice_parts = $filenameInvoiceParts;
+            }
+            if(isset($request->invoice_services)){
+                $filenameInvoiceServices = $request->file('invoice_services')->store('invoices_services');
+                $partsInvoice->invoice_services = $filenameInvoiceServices;
+            }
+            if(isset($request->discharge_term)){
+                $filenameInvoiceDischargTerms = $request->file('discharge_term')->store('discharge_terms');
+                $partsInvoice->discharge_term = $filenameInvoiceDischargTerms;
+            }
     
             $partsInvoice->save();
             return back()->with('success', 'Nota enviada com sucesso!');
@@ -75,7 +84,13 @@ class PartsInvoicesController extends Controller
     public function show($id)
     {
         $partsInvoice = PartsInvoice::findOrFail($id);
-        return view('partsInvoices.edit',compact('partsInvoice'));
+
+        if($partsInvoice->read == 0){
+            $partsInvoice->read = 1;
+            $partsInvoice->save();
+        }
+        
+        return view('admin.partsinvoice.view',compact('partsInvoice'));
     }
   
     public function update(Request $request, $id)

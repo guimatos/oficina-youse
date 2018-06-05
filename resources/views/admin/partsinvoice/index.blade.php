@@ -24,16 +24,25 @@
                             <th>Sinistro</th>
                             <th>Documento</th>
                             <th>Placa</th>
+                            <th>Enviada em</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($partsInvoices as $partsInvoice)
+                        @if($partsInvoice->read)
                         <tr>
+                        @else
+                        <tr class="bold">
+                        @endif
                             <td>{{$partsInvoice->sinister}}</td>
                             <td>{{$partsInvoice->office_document}}</td>
                             <td>{{$partsInvoice->vehicle_plate}}</td>
-                            <td></td>
+                            <td>{{date('d/m/Y H:m', strtotime($partsInvoice->created_at))}}</td>
+                            <td>
+                                <a class="yellow-link" href="{{url('/admin/notas/'. $partsInvoice->id)}}"><i class="material-icons">view_headline</i></a>
+                                <a class="yellow-link" href="{{url('/admin/notas/'. $partsInvoice->id)}}"><i class="material-icons">delete</i></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

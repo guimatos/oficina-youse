@@ -9942,6 +9942,10 @@ $(document).ready(function () {
     $('.close').on('click', function () {
         $(this).parent().parent().remove();
     });
+
+    $(".dropdown").hover(function () {
+        $(this).find(".dropdown-menu").show();
+    });
 });
 
 /***/ }),

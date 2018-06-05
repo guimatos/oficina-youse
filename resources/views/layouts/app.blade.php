@@ -17,7 +17,7 @@
     <header>
         <nav class="nav">
             <div class="nav-wrapper container">
-                <a href="#!" class="brand-logo">
+                <a href="{{url('/')}}" class="brand-logo">
             <img src="https://s3.amazonaws.com/user-media.venngage.com/886726-773eede5fa40f61bb7020ccaea4bb480.png" height="35px"></img>
             </a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -27,7 +27,7 @@
                     <li><a href="{{ route('login') }}">Login</a></li>
                     @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a href="{{{ URL::route('partsinvoices') }}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                         <ul class="dropdown-menu" role="menu">
