@@ -9697,6 +9697,10 @@ footer .social-nav-list .item {
   color: #ffb81c;
 }
 
+.black-link {
+  color: #000;
+}
+
 hr {
   border: 0.5px solid #e6e5e5;
 }

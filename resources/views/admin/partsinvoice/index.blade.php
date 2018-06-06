@@ -17,6 +17,9 @@
                 </div>
             </div>
             <div class="col s12">
+                @include('flashMessage')
+            </div>
+            <div class="col s12">
                 @if(isset($partsInvoices) && count($partsInvoices) > 0)
                 <table class="highlight responsive-table">
                     <thead>
@@ -41,7 +44,7 @@
                             <td>{{date('d/m/Y H:m', strtotime($partsInvoice->created_at))}}</td>
                             <td>
                                 <a class="yellow-link" href="{{url('/admin/notas/'. $partsInvoice->id)}}"><i class="material-icons">view_headline</i></a>
-                                <a class="yellow-link" href="{{url('/admin/notas/'. $partsInvoice->id)}}"><i class="material-icons">delete</i></a>
+                                <a class="yellow-link" href="{{url('/admin/notas/deletar/'. $partsInvoice->id)}}" onclick="return confirm('Confirma a exclusão deste item?');"><i class="material-icons">delete</i></a>
                             </td>
                         </tr>
                         @endforeach

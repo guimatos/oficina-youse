@@ -2,6 +2,9 @@
 <section class="parts-invoice panel">
     <div class="container">
         <div class="row">
+            <div class="col s12">
+                @include('flashMessage')
+            </div>
             @if(isset($partsInvoice))
             <div class="col s12">
                 <h1>Nota #{{$partsInvoice->id}}</h1>
@@ -21,14 +24,34 @@
                 <hr>
                 <h4>Documentos</h4>
                 <p>
+                    @if(($partsInvoice->invoice_parts))
                     <div class="btn" style="width:33%;">
-                        <span>Nota fiscal de peças</span>
+                    @else
+                    <div class="btn disabled" style="width:33%;">
+                    @endif
+                        <a class="black-link" href="{{ route('download', [$partsInvoice->id, 'document' => 'invoice_parts']) }}">
+                            <span>Nota fiscal de peças</span>
+                        </a>
                      </div>
-                     <div class="btn" style="width:33%;">
-                        <span>Nota fiscal de serviços</span>
+
+                    @if(($partsInvoice->invoice_services))
+                    <div class="btn" style="width:33%;">
+                    @else
+                    <div class="btn disabled" style="width:33%;">
+                    @endif
+                        <a class="black-link" href="{{ route('download', [$partsInvoice->id, 'document' => 'invoice_services']) }}">
+                            <span>Nota fiscal de serviços</span>
+                        </a>
                      </div>
-                     <div class="btn" style="width:33%;">
-                        <span>Termo de quitação</span>
+
+                    @if(($partsInvoice->discharge_term))
+                    <div class="btn" style="width:33%;">
+                    @else
+                    <div class="btn disabled" style="width:33%;">
+                    @endif
+                        <a class="black-link" href="{{ route('download', [$partsInvoice->id, 'document' => 'discharge_term']) }}">
+                            <span>Termo de quitação</span>
+                        </a>
                      </div>
                 </p>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 use App\PartsInvoice;
 
@@ -26,7 +27,7 @@ class PartsInvoicesController extends Controller
         if (count ( $partsInvoices ) > 0){
             return view('admin.partsinvoice.index',['partsInvoices' => $partsInvoices]);
         } else {
-            return view ('admin.partsinvoice.index')->with('warning', 'Não há resultados a exibir.');
+            return view ('admin.partsinvoice.index')->with('message', 'Não há resultados a exibir.');
         }
         
     }
@@ -44,7 +45,7 @@ class PartsInvoicesController extends Controller
                 return view('admin.partsinvoice.index', ['message' => 'Nenhum resultado encontrado com o termo <i>' . $q . '</i>. Por favor, tente novamente.']);
             }   
         }
-        return view ('admin.partsinvoice.index')->with('warning', 'No Details found. Try to search again !');
+        return view ('admin.partsinvoice.index')->with('warning', 'Nenhum resultado encontrado, por favor, tente novamente !');
     }
 
     public function store(Request $request)
@@ -108,6 +109,30 @@ class PartsInvoicesController extends Controller
     {
         $partsInvoice = PartsInvoice::findOrFail($id);
         $partsInvoice->delete();
-        return redirect()->route('partsInvoices.index')->with('alert-success','PartsInvoice hasbeen deleted!');
+        return back()->with('success', 'Registro deletado');
+    }
+
+    public function downloadInvoiceDocuments(Request $request, $id)
+    {
+        $partsInvoice = PartsInvoice::findOrFail($id);
+        try {
+            switch ($request->document) {
+                case 'invoice_parts':
+                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->invoice_parts, "Nota_peças_" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_parts), strpos(Storage::mimeType($partsInvoice->invoice_parts), "/") + 1));
+                    break;
+                case 'invoice_services':
+                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->invoice_services, "Nota_servicos_" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_parts), strpos(Storage::mimeType($partsInvoice->invoice_parts), "/") + 1));
+                    break;
+                case 'discharge_term':
+                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->discharge_term, "Termo_de_quitacao" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_parts), strpos(Storage::mimeType($partsInvoice->invoice_parts), "/") + 1));
+                    break;
+                default:
+                    return back()->with('warning', 'Este arquivo não está disponível para download');
+                    break;
+            }
+        }
+        catch (\Exception $e) {
+            return back()->with('warning', 'Este arquivo não está disponível para download');
+        }
     }
 }

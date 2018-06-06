@@ -20,7 +20,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get ('/pesquisar', 'PartsInvoicesController@search')->name('search');
         Route::get('/', 'PartsInvoicesController@get')->name('partsinvoices');
         Route::get('/{id}', 'PartsInvoicesController@show');
-        Route::post('/deletar/{id}', 'PartsInvoicesController@destroy');
+        Route::get('/deletar/{id}', 'PartsInvoicesController@destroy');
+        Route::get('/download/{id}', 'PartsInvoicesController@downloadInvoiceDocuments')->name('download');
     });
 });
 
