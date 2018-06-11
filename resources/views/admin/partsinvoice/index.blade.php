@@ -1,4 +1,5 @@
 @extends('layouts.app') @section('content')
+@section('title', 'Notas recebidas')
 <section class="parts-invoice panel">
     <div class="container">
         <div class="row">
@@ -6,7 +7,7 @@
                 <h1>Notas recebidas</h1>
             </div>
             <div class="row">
-                <div class="col s12">
+                <div class="col s10">
                     <form action="/admin/notas/pesquisar" method="GET" role="search">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">textsms</i>
@@ -14,6 +15,10 @@
                             <label for="autocomplete-input">Pesquisar...</label>
                         </div>
                     </form>
+                </div>
+                <div class="icon-preview col s2">
+                    <a class="yellow-link" href="{{url('/admin/notas/excel/')}}"><i class="material-icons icon-download">file_download</i></a>
+                    <span class="block">Exportar tudo</span>
                 </div>
             </div>
             <div class="col s12">
@@ -45,6 +50,7 @@
                             <td>
                                 <a class="yellow-link" href="{{url('/admin/notas/'. $partsInvoice->id)}}"><i class="material-icons">view_headline</i></a>
                                 <a class="yellow-link" href="{{url('/admin/notas/deletar/'. $partsInvoice->id)}}" onclick="return confirm('Confirma a exclusão deste item?');"><i class="material-icons">delete</i></a>
+                                <a class="yellow-link" href="{{url('/admin/notas/excel/'. $partsInvoice->id)}}"><i class="material-icons">file_download</i></a>
                             </td>
                         </tr>
                         @endforeach

@@ -1,4 +1,5 @@
 @extends('layouts.app') @section('content')
+@section('title', 'Nota #' . $partsInvoice->id )
 <section class="parts-invoice panel">
     <div class="container">
         <div class="row">

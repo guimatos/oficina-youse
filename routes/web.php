@@ -18,6 +18,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'notas'], function () {
         /* Search for notes */
         Route::get ('/pesquisar', 'PartsInvoicesController@search')->name('search');
+        Route::get('/excel', 'PartsInvoicesController@exportExcel');
+        Route::get('/excel/{id}', 'PartsInvoicesController@exportExcel');
         Route::get('/', 'PartsInvoicesController@get')->name('partsinvoices');
         Route::get('/{id}', 'PartsInvoicesController@show');
         Route::get('/deletar/{id}', 'PartsInvoicesController@destroy');

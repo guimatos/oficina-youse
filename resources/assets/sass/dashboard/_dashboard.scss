@@ -12,12 +12,16 @@ body {
         li {
             a {
                 color: #000;
+                min-width: 80px;
             }
         }
     }
     .brand-logo {
         font-size: 4.1rem;
     }
+}
+.block {
+    display: block;
 }
 
 .btn, .btn-large, .btn-small {

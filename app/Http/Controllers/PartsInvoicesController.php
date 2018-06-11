@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
+use Excel;
 
 use App\PartsInvoice;
 
@@ -92,6 +93,89 @@ class PartsInvoicesController extends Controller
         }
         
         return view('admin.partsinvoice.view',compact('partsInvoice'));
+    }
+
+    public function exportExcel($id = null)
+    {   
+        $fields = [
+            'id',
+            'sinister',
+            'vehicle_plate',
+            'office_email',
+            'office_telephone',
+            'office_document',
+            'bank',
+            'agency',
+            'account',
+            'invoice_parts',
+            'invoice_services',
+            'discharge_term',
+            'created_at'
+        ];
+
+        $invoicesArray = []; 
+
+        $invoicesArray[] = [
+            '#ID',
+            'Número do sinistro',
+            'Placa do veículo',
+            'Email oficina',
+            'Telefone oficina',
+            'CPF/CNPJ Oficina',
+            'Banco',
+            'Agencia',
+            'Conta corrente',
+            'Nota de peças',
+            'Nota de serviços',
+            'Termo de quitação',
+            'Enviado em'
+        ];
+        
+        if(is_null($id))
+        {
+            $partsInvoices = PartsInvoice::orderBy('created_at', 'desc')->get($fields);
+            
+            foreach($partsInvoices as $partsInvoice) {
+                $invoicesArray[] = $partsInvoice->toArray();
+            }
+            
+        } else {
+            $partsInvoice = PartsInvoice::findOrFail($id, $fields);
+            $invoicesArray[] = $partsInvoice->toArray();
+        }
+        
+       
+        for ($i = 1; $i < count($invoicesArray); $i++) {
+            if ($invoicesArray[$i]['invoice_parts'] != '')
+                $invoicesArray[$i]['invoice_parts'] = route('download', [$invoicesArray[$i]['id'], 'document' => 'invoice_parts']);
+
+            if ($invoicesArray[$i]['invoice_services'] != '')
+                $invoicesArray[$i]['invoice_services'] = route('download', [$invoicesArray[$i]['id'], 'document' => 'invoice_services']);
+            
+            if ($invoicesArray[$i]['discharge_term'] != '')
+                $invoicesArray[$i]['discharge_term'] = route('download', [$invoicesArray[$i]['id'], 'document' => 'discharge_term']);
+        }
+        
+        if(count($invoicesArray) <= 2){
+            $documentTitle = 'nota-sinistro-' . $partsInvoice->sinister;
+        } else {
+            $documentTitle = "notas";
+        }
+        // Generate and return the spreadsheet
+        Excel::create($documentTitle, function($excel) use ($invoicesArray) {
+
+            // Set the spreadsheet title, creator, and description
+            $excel->setTitle('nota sinistro');
+            $excel->setCreator('OficinaYouse')->setCompany('Youse');
+
+            // Build the spreadsheet, passing in the invoices array
+            $excel->sheet('sheet1', function($sheet) use ($invoicesArray) {
+                $sheet->fromArray($invoicesArray, null, 'A1', false, false);
+            });
+
+        })->download('xlsx');
+
+        return back()->with('success', 'Nota exportada com sucesso!');
     }
   
     public function update(Request $request, $id)

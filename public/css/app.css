@@ -9542,10 +9542,15 @@ body {
 
 .nav ul li a {
   color: #000;
+  min-width: 80px;
 }
 
 .nav .brand-logo {
   font-size: 4.1rem;
+}
+
+.block {
+  display: block;
 }
 
 .btn,
@@ -9768,6 +9773,15 @@ hr {
 
 .send {
   text-align: center;
+}
+
+.icon-preview {
+  height: 84px;
+  text-align: center;
+}
+
+.icon-download {
+  padding-top: 20px;
 }
 
 .login {
