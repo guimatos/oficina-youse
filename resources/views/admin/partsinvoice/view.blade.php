@@ -9,7 +9,7 @@
             @if(isset($partsInvoice))
             <div class="col s12">
                 <h1>Nota #{{$partsInvoice->id}}</h1>
-                <span>Enviada em {{$partsInvoice->created_at}}</span>
+                <span>Enviada em {{date('d/m/Y H:m', strtotime($partsInvoice->created_at))}}</span>
                 <hr>
                 <h4>Infos</h4>
                 <p><b>Número do sinistro:</b> {{ $partsInvoice->sinister }}</p>
@@ -62,7 +62,7 @@
             @else
             <div class="col s12">
                 <div class="alert alert-warning alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                    <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>{!! $message !!}</strong>
                 </div>
             </div>

@@ -16,7 +16,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="icon-preview col s2">
+                <div class="icon-preview col l2 s12">
                     <a class="yellow-link" href="{{url('/admin/notas/excel/')}}"><i class="material-icons icon-download">file_download</i></a>
                     <span class="block">Exportar tudo</span>
                 </div>
@@ -56,7 +56,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="row">                
+                <div class="row">
                     <div class="col s12">
                         {{ $partsInvoices->links() }}
                     </div>
@@ -64,7 +64,7 @@
 
                 @else
                 <div class="alert alert-warning alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                    <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>{!! $message !!}</strong>
                 </div>
                 @endif

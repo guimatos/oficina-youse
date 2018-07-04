@@ -9715,6 +9715,7 @@ hr {
 }
 
 .bold {
+  font-family: 'FelbridgePro-Bold';
   font-weight: bold;
 }
 
@@ -9809,5 +9810,43 @@ hr {
 
 .parts-invoice {
   margin-top: 50px;
+}
+
+/*Media Queries */
+
+@media (max-width: 999px) {
+  .header {
+    height: 415px;
+  }
+
+  .file-field .btn,
+  .file-field .btn-large,
+  .file-field .btn-small {
+    width: 100% !important;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .parts-invoice .btn,
+  .parts-invoice .btn-large,
+  .parts-invoice .btn-small {
+    width: 100% !important;
+    margin: 15px 0;
+  }
+
+  nav a {
+    color: #000;
+  }
+
+  .login .panel {
+    position: unset;
+    top: unset;
+    left: unset;
+    width: unset;
+    -webkit-transform: unset;
+    transform: unset;
+  }
 }
 

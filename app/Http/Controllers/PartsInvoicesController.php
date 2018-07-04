@@ -30,21 +30,21 @@ class PartsInvoicesController extends Controller
         } else {
             return view ('admin.partsinvoice.index')->with('message', 'Não há resultados a exibir.');
         }
-        
+
     }
-    
+
     public function search (Request $request) {
         $q = $request->q;
         if($q != ""){
             $partsInvoices = PartsInvoice::where ( 'sinister', 'LIKE', '%' . $q . '%' )->orWhere ( 'vehicle_plate', 'LIKE', '%' . $q . '%' )->orWhere ('office_document', 'LIKE', '%' . $q . '%' )->paginate(10)->setPath ( '' );
             $pagination = $partsInvoices->appends ( array (
-                        'q' => Input::get ( 'q' ) 
+                        'q' => Input::get ( 'q' )
                 ));
             if (count($partsInvoices) > 0){
                 return view('admin.partsinvoice.index', ['partsInvoices' => $partsInvoices]);
             } else {
                 return view('admin.partsinvoice.index', ['message' => 'Nenhum resultado encontrado com o termo <i>' . $q . '</i>. Por favor, tente novamente.']);
-            }   
+            }
         }
         return view ('admin.partsinvoice.index')->with('warning', 'Nenhum resultado encontrado, por favor, tente novamente !');
     }
@@ -74,7 +74,7 @@ class PartsInvoicesController extends Controller
                 $filenameInvoiceDischargTerms = $request->file('discharge_term')->store('discharge_terms');
                 $partsInvoice->discharge_term = $filenameInvoiceDischargTerms;
             }
-    
+
             $partsInvoice->save();
             return back()->with('success', 'Nota enviada com sucesso!');
         }
@@ -82,7 +82,7 @@ class PartsInvoicesController extends Controller
             return back()->with('error', 'Ocorreu um erro ao enviar sua nota. Por favor, tente novamente' . '<br> Erro: ' . $e->getMessage());
         }
     }
-  
+
     public function show($id)
     {
         $partsInvoice = PartsInvoice::findOrFail($id);
@@ -91,12 +91,12 @@ class PartsInvoicesController extends Controller
             $partsInvoice->read = 1;
             $partsInvoice->save();
         }
-        
+
         return view('admin.partsinvoice.view',compact('partsInvoice'));
     }
 
     public function exportExcel($id = null)
-    {   
+    {
         $fields = [
             'id',
             'sinister',
@@ -113,7 +113,7 @@ class PartsInvoicesController extends Controller
             'created_at'
         ];
 
-        $invoicesArray = []; 
+        $invoicesArray = [];
 
         $invoicesArray[] = [
             '#ID',
@@ -130,32 +130,32 @@ class PartsInvoicesController extends Controller
             'Termo de quitação',
             'Enviado em'
         ];
-        
+
         if(is_null($id))
         {
             $partsInvoices = PartsInvoice::orderBy('created_at', 'desc')->get($fields);
-            
+
             foreach($partsInvoices as $partsInvoice) {
                 $invoicesArray[] = $partsInvoice->toArray();
             }
-            
+
         } else {
             $partsInvoice = PartsInvoice::findOrFail($id, $fields);
             $invoicesArray[] = $partsInvoice->toArray();
         }
-        
-       
+
+
         for ($i = 1; $i < count($invoicesArray); $i++) {
             if ($invoicesArray[$i]['invoice_parts'] != '')
                 $invoicesArray[$i]['invoice_parts'] = route('download', [$invoicesArray[$i]['id'], 'document' => 'invoice_parts']);
 
             if ($invoicesArray[$i]['invoice_services'] != '')
                 $invoicesArray[$i]['invoice_services'] = route('download', [$invoicesArray[$i]['id'], 'document' => 'invoice_services']);
-            
+
             if ($invoicesArray[$i]['discharge_term'] != '')
                 $invoicesArray[$i]['discharge_term'] = route('download', [$invoicesArray[$i]['id'], 'document' => 'discharge_term']);
         }
-        
+
         if(count($invoicesArray) <= 2){
             $documentTitle = 'nota-sinistro-' . $partsInvoice->sinister;
         } else {
@@ -177,7 +177,7 @@ class PartsInvoicesController extends Controller
 
         return back()->with('success', 'Nota exportada com sucesso!');
     }
-  
+
     public function update(Request $request, $id)
     {
         $partsInvoice = PartsInvoice::findOrFail($id);
@@ -188,7 +188,7 @@ class PartsInvoicesController extends Controller
         $partsInvoice->save();
         return redirect()->route('partsInvoices.index')->with('message', 'PartsInvoice updated successfully!');
     }
-  
+
     public function destroy($id)
     {
         $partsInvoice = PartsInvoice::findOrFail($id);
@@ -205,10 +205,10 @@ class PartsInvoicesController extends Controller
                     return response()->download(storage_path().'/'.'app/'. $partsInvoice->invoice_parts, "Nota_peças_" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_parts), strpos(Storage::mimeType($partsInvoice->invoice_parts), "/") + 1));
                     break;
                 case 'invoice_services':
-                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->invoice_services, "Nota_servicos_" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_parts), strpos(Storage::mimeType($partsInvoice->invoice_parts), "/") + 1));
+                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->invoice_services, "Nota_servicos_" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_services), strpos(Storage::mimeType($partsInvoice->invoice_services), "/") + 1));
                     break;
                 case 'discharge_term':
-                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->discharge_term, "Termo_de_quitacao" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->invoice_parts), strpos(Storage::mimeType($partsInvoice->invoice_parts), "/") + 1));
+                    return response()->download(storage_path().'/'.'app/'. $partsInvoice->discharge_term, "Termo_de_quitacao" . $partsInvoice->sinister . "." .  substr(Storage::mimeType($partsInvoice->discharge_term), strpos(Storage::mimeType($partsInvoice->discharge_term), "/") + 1));
                     break;
                 default:
                     return back()->with('warning', 'Este arquivo não está disponível para download');

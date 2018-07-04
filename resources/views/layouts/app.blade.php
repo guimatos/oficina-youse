@@ -20,7 +20,7 @@
                 <a href="{{url('/')}}" class="brand-logo">
             <img src="https://s3.amazonaws.com/user-media.venngage.com/886726-773eede5fa40f61bb7020ccaea4bb480.png" height="35px"></img>
             </a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons prefix">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
@@ -29,7 +29,7 @@
                     <li><a href="{{ route('register') }}">Novo usuário</a></li>
                     <li class="dropdown">
                         <a href="{{{ URL::route('partsinvoices') }}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    {{ Auth::user()->name }} - Dashboard <span class="caret"></span>
                     </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
@@ -46,10 +46,27 @@
                     @endif
                 </ul>
                 <ul class="sidenav" id="mobile-demo">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">Javascript</a></li>
-                    <li><a href="mobile.html">Mobile</a></li>
+                    @if (Auth::guest())
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    @else
+                    <li><a href="{{ route('register') }}">Novo usuário</a></li>
+                    <li class="dropdown">
+                        <a href="{{{ URL::route('partsinvoices') }}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    {{ Auth::user()->name }} - Dashboard <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                        Logout
+                        </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </nav>
